@@ -7,8 +7,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
+}
 ul,
 li,
 dl {
@@ -66,7 +71,7 @@ main {
 }
 
 .pulse {
-    animation: pulse 1.5s ease-in-out .5s infinite
+    animation: pulse 6s ease-in-out 3s infinite
 }
 
 @keyframes pulse {

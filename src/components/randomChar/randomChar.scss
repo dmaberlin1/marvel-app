@@ -12,9 +12,10 @@
         column-gap: 30px;
     }
     &__img {
-        width: 180px;
+        width: 200px;
         height: 180px;
         object-fit: cover;
+        border-radius: 40px
     }
     &__img-not-avaliable{
         object-fit: contain !important;

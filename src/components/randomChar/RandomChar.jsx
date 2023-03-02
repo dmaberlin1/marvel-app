@@ -64,7 +64,7 @@ class RandomChar extends Component {
         const content=!(loading|| error) ? <View char={char}/> :null;
 
         return (
-          <div className="randomchar">
+          <div className="randomchar" >
               {errorMessage}
               {spinner}
               {content}
@@ -76,10 +76,10 @@ class RandomChar extends Component {
                   <p className="randomchar__title">
                       Or choose another one
                   </p>
-                  <button onClick={this.onGetRandomChar} className="button button__main">
+                  <button  onClick={this.onGetRandomChar} className="button button__main">
                       <div className="inner">try it</div>
                   </button>
-                  <img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
+                  <img draggable='false' src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
               </div>
           </div>
         )
@@ -101,7 +101,7 @@ const View=({char})=>{
 
     return(
       <div className="randomchar__block">
-          <img src={thumbnail} alt="Random character" className={showImg}/>
+          <img draggable='false' src={thumbnail} alt="Random character" className={showImg}/>
           <div className="randomchar__info">
               <p className="randomchar__name">{name}</p>
               <p className="randomchar__descr">
@@ -110,11 +110,11 @@ const View=({char})=>{
                   {/*  : 'There is no description for this amazing hero'}*/}
                   {description}
               </p>
-              <div className="randomchar__btns">
-                  <a href={homepage} className="button button__main">
+              <div  className="randomchar__btns">
+                  <a  draggable='false' href={homepage} className="button button__main">
                       <div className="inner">homepage</div>
                   </a>
-                  <a href={wiki} className="button button__secondary">
+                  <a draggable='false' href={wiki} className="button button__secondary">
                       <div className="inner">Wiki</div>
                   </a>
               </div>
