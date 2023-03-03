@@ -3,6 +3,7 @@
 .randomchar {
     display: grid;
     grid-template-columns: repeat(2, 50%);
+    align-items: center;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
     &__block {
         padding: 40px 35px;
@@ -11,9 +12,13 @@
         column-gap: 30px;
     }
     &__img {
-        width: 180px;
+        width: 200px;
         height: 180px;
         object-fit: cover;
+        border-radius: 40px
+    }
+    &__img-not-avaliable{
+        object-fit: contain !important;
     }
     &__info {
         display: grid;
@@ -28,7 +33,7 @@
         text-transform: uppercase;
     }
     &__descr {
-        font-size: 14px;
+        font-size: 16px;
         line-height: 18px;
     }
     &__btns {
@@ -38,7 +43,7 @@
     }
     &__static {
         padding: 40px 35px;
-        background-color: $dark;
+        //background-color: $dark;
         position: relative;
         button {
             margin-top: 13px;
