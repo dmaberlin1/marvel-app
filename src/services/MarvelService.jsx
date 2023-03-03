@@ -3,7 +3,7 @@ const API_PATCH='https://gateway.marvel.com:443/v1/public'
 
 class MarvelService {
 
-
+    BASE_OFFSET=215
     getResource = async (url) => {
         let res = await fetch(url);
 
@@ -13,8 +13,8 @@ class MarvelService {
         return await res.json();
     }
 
-    getAllCharacters = async () => {
-        const res=await  this.getResource(`${API_PATCH}/characters?limit=9&offset=749&${API_KEY}`)
+    getAllCharacters = async (offset=this.BASE_OFFSET) => {
+        const res=await  this.getResource(`${API_PATCH}/characters?limit=9&offset=${offset}&${API_KEY}`)
         return res.data.results.map(this._transformCharacter)
     }
 

@@ -1,10 +1,10 @@
 import './charInfo.scss';
-import thor from '../../resources/img/thor.jpeg';
 import {Component} from "react";
 import MarvelService from "../../services/MarvelService";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/Spinner";
 import Skeleton from "../skeleton/Skeleton";
+import PropTypes from "prop-types";
 
 class CharInfo extends Component {
 
@@ -24,6 +24,11 @@ class CharInfo extends Component {
         if(this.props.charId !==prevProps.charId){
             this.updateChar()
         }
+      }
+
+      componentDidCatch(error, errorInfo) {
+        console.log(error,errorInfo);
+
       }
 
     updateChar = () => {
@@ -78,17 +83,7 @@ class CharInfo extends Component {
 
 const View = ({char}) => {
     const {thumbnail, name, homepage, wiki, description,comics} = char
-    const showComics=(comics)=>{
-        comics.map((item,i)=>{
-            if (i>12) return;
-            return(
-              <li key={i}
-                  className="char__comics-item">
-                  {item.name}
-              </li>
-            )
-        })
-    }
+
 
     return (
       <>
@@ -113,7 +108,7 @@ const View = ({char}) => {
           <ul className="char__comics-list">
               {/*{comics.length>0 ?null:'There is no comics with this character'}*/}
               {/* альтернативный способ я сделал в компоненте*/}
-              {comics>0 ? comics.map((item,i)=>{
+              {comics.length>0 ? comics.map((item,i)=>{
               if (i>12) return;
               //такой способ подходит если у нас мало элементов, потому что цикл всё равно будет крутить
               return(
@@ -128,5 +123,7 @@ const View = ({char}) => {
       </>
     )
 }
-
+CharInfo.propTypes={
+    charId:PropTypes.number
+}
 export default CharInfo;
