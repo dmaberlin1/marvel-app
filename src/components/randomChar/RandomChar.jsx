@@ -1,6 +1,6 @@
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
-import {Component} from "react";
+import {Component, useEffect, useState} from "react";
 import MarvelService from "../../services/MarvelService";
 import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
@@ -11,54 +11,55 @@ import ErrorMessage from "../errorMessage/ErrorMessage";
 //компонент чар лист реализовать
 //сделать запрос на сервер- получить девять персонажей и построить на этих данных интерфейс с уникальными id
 
-class RandomChar extends Component {
-    state = {
-        char: {},
-        loading:true,
-        error:false
-    }
-
-    marvelService = new MarvelService()
+const RandomChar =()=> {
+    const [char, setChar] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
 
-    componentDidMount() {
-        this.updateChar()
-    }
-    componentWillUnmount() {
-    }
+   const marvelService = new MarvelService()
 
-    onCharLoading=()=>{
+
+    useEffect(() => {
+        updateChar()
+    }, []);
+
+
+
+
+
+   const onCharLoading=()=>{
         this.setState({
             loading:true
         })
     }
-    onCharLoaded = (char) => {
+    const onCharLoaded = (char) => {
         this.setState({char,loading:false})
         //короткая запись будет {char} - на место char в стейте- приходит чар из промиса
     }
 
-    onError=()=>{
+    const onError=()=>{
         this.setState({
             loading:false,
             error:true
         })
     }
-    updateChar = () => {
+    const updateChar = () => {
         // const id=1011005;
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
-        this.onCharLoading()
-        this.marvelService
-          .getCharacter(id).then(this.onCharLoaded).catch(this.onError)
+        onCharLoading()
+        marvelService
+          .getCharacter(id).then(onCharLoaded).catch(onError)
         // .getAllCharacters().then(res=>console.log(res))
 
     }
 
-    onGetRandomChar=()=>{
-        this.updateChar()
+    const onGetRandomChar=()=>{
+        updateChar()
     }
 
-    render() {
-        const {char,loading,error} = this.state;
+
+
         const errorMessage=error? <ErrorMessage></ErrorMessage> :null;
         const spinner=loading ? <Spinner></Spinner> :null;
         const content=!(loading|| error) ? <View char={char}/> :null;
@@ -83,7 +84,7 @@ class RandomChar extends Component {
               </div>
           </div>
         )
-    }
+
 }
 
 const View=({char})=>{
