@@ -4,22 +4,17 @@ import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 
 import decoration from '../../resources/img/vision.png';
-import {Component} from "react";
+import {useState} from "react";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
-class App extends Component {
-    state = {
-        selectedChar: null
-    }
-
-    onCharSelected = (id) => {
-        this.setState({
-            selectedChar: id
-        })
+const App =()=> {
+    const [selectedChar, setSelectedChar] = useState(null);
+   const  onCharSelected = (id) => {
+        setSelectedChar(selectedChar(id))
         window.scroll(0, 50)
     }
 
-    render() {
+
         return (
           <div className="app">
               <AppHeader/>
@@ -29,18 +24,18 @@ class App extends Component {
                  </ErrorBoundary>
                   <div className="char__content">
                      <ErrorBoundary>
-                         <CharList onCharSelected={this.onCharSelected}/>
+                         <CharList onCharSelected={onCharSelected}/>
                      </ErrorBoundary>
 
                       <ErrorBoundary>
-                          <CharInfo charId={this.state.selectedChar}/>
+                          <CharInfo charId={selectedChar}/>
                       </ErrorBoundary>
                   </div>
                   <img draggable='false' className="bg-decoration" src={decoration} alt="vision"/>
               </main>
           </div>
         )
-    }
+
 }
 
 export default App;
