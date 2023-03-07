@@ -1,7 +1,7 @@
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 import {Component, useEffect, useState} from "react";
-import MarvelService from "../../services/MarvelService";
+import useMarvelService from "../../services/MarvelService";
 import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 
@@ -12,12 +12,9 @@ import ErrorMessage from "../errorMessage/ErrorMessage";
 //сделать запрос на сервер- получить девять персонажей и построить на этих данных интерфейс с уникальными id
 
 const RandomChar =()=> {
-    const [char, setChar] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const [char, setChar] = useState(null);
 
-
-   const marvelService = new MarvelService()
+   const {loading,error,getCharacter,clearError}= useMarvelService()
 
 
     useEffect(() => {
@@ -28,28 +25,30 @@ const RandomChar =()=> {
 
 
 
-   const onCharLoading=()=>{
-        this.setState({
-            loading:true
-        })
-    }
+   // const onCharLoading=()=>{
+   //      this.setState({
+   //          loading:true
+   //      })
+   //  }
+    // const onError=()=>{
+    //     this.setState({
+    //         loading:false,
+    //         error:true
+    //     })
+    // }
+
     const onCharLoaded = (char) => {
-        this.setState({char,loading:false})
+       setChar(char)
         //короткая запись будет {char} - на место char в стейте- приходит чар из промиса
     }
 
-    const onError=()=>{
-        this.setState({
-            loading:false,
-            error:true
-        })
-    }
     const updateChar = () => {
         // const id=1011005;
+        clearError();
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
-        onCharLoading()
-        marvelService
-          .getCharacter(id).then(onCharLoaded).catch(onError)
+
+
+          getCharacter(id).then(onCharLoaded).catch(onError)
         // .getAllCharacters().then(res=>console.log(res))
 
     }

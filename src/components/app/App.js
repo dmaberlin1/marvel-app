@@ -1,40 +1,28 @@
 import AppHeader from "../appHeader/AppHeader";
-import RandomChar from "../randomChar/RandomChar";
-import CharList from "../charList/CharList";
-import CharInfo from "../charInfo/CharInfo";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {MainPage, ComicsPage,Page404} from '../pages'
 
-import decoration from '../../resources/img/vision.png';
-import {useState} from "react";
-import ErrorBoundary from "../errorBoundary/ErrorBoundary";
-
-const App =()=> {
-    const [selectedChar, setSelectedChar] = useState(null);
-   const  onCharSelected = (id) => {
-        setSelectedChar(selectedChar(id))
-        window.scroll(0, 50)
-    }
+const App = () => {
 
 
-        return (
+    return (
+      <Routes>
           <div className="app">
               <AppHeader/>
               <main>
-                 <ErrorBoundary>
-                     <RandomChar/>
-                 </ErrorBoundary>
-                  <div className="char__content">
-                     <ErrorBoundary>
-                         <CharList onCharSelected={onCharSelected}/>
-                     </ErrorBoundary>
+                  <Routes>
+                      <Route  path={'/'} element={<MainPage></MainPage>}></Route>
+                      <Route  path={'/comics'} element={<ComicsPage></ComicsPage>}></Route>
+                      <Route path={'*'} element={<Page404/>}>
 
-                      <ErrorBoundary>
-                          <CharInfo charId={selectedChar}/>
-                      </ErrorBoundary>
-                  </div>
-                  <img draggable='false' className="bg-decoration" src={decoration} alt="vision"/>
+                      </Route>
+                  </Routes>
               </main>
+
+
           </div>
-        )
+
+      </Routes>)
 
 }
 
